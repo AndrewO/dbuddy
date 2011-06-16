@@ -8,7 +8,7 @@ Gem::Specification.new do |s|
   s.platform    = Gem::Platform::RUBY
   s.authors     = ["Andrew O'Brien"]
   s.email       = ["andrew@econify.com"]
-  s.homepage    = "http://github.com/AndrewO/db_exec"
+  s.homepage    = "http://github.com/AndrewO/dbuddy"
   s.summary     = %q{Got stored procedures and views in your repo? Loading them should be simple.}
   s.description = %q{A small script to watch over bunches of raw SQL files and load them on changes. Or just load a bunch at once.}
 
