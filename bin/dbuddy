@@ -1,0 +1,46 @@
+#!/usr/bin/env ruby
+require 'optparse'
+
+require 'rubygems'
+require 'watchr'
+
+$:.unshift(File.join(File.dirname(__FILE__), "/../lib"))
+require "dbuddy"
+
+@watch = false
+
+opts = OptionParser.new
+opts.on("-w", "--watch") { @watch = true }
+@globs = opts.parse(ARGV)
+
+# Assumes it's in a Rails environment. Eventually I could see adding some kind of config file or initializer that
+# allows use with any project, but I don't need that right now.
+require File.join(Dir.pwd, 'config/environment')
+
+
+if @watch
+  script = Watchr::Script.new
+
+  @globs.each do |glob|
+    puts "Watching #{glob}"
+
+    script.watch(glob) do |path|
+      puts "Reloading #{path}"
+      DBuddy.run(ActiveRecord::Base.connection, path.to_s)
+    end 
+  end
+  
+  Watchr::Controller.new(script, Watchr.handler.new).run
+else
+  @globs.each do |glob|
+    puts "Running #{glob}"
+
+    DBuddy.run(ActiveRecord::Base.connection, *Dir.glob(glob))
+  end
+end
+
+# Signal.trap 'INT' do
+#    puts " Shutting down now"
+#    exit
+# end
+

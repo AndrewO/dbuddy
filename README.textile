@@ -1,0 +1,33 @@
+h1. DBuddy
+
+Have stored procedures or view definitions in your application? Wouldn't it be great if you could keep those with the rest of your code?
+
+DBuddy is a small script that does two things to streamline this process:
+
+# Loads all of the SQL files matching one or more globs
+# Watches over those files and reloads them on changes
+
+h2. Usage
+
+Loading:
+
+<code><pre>
+  dbuddy db/views/*.sql db/procedures/*.sql
+</pre></code>
+
+Watching:
+
+<code><pre>
+  dbuddy --watch db/views/*.sql db/procedures/*.sql
+  dbuddy -w db/views/*.sql db/procedures/*.sql
+</pre></code>
+
+From code (e.g. rake task)
+
+<code><pre>
+  DBuddy.run(ActiveRecord::Base.connection, Dir.glob("db/views/*.sql") + Dir.glob("db/procedures/*.sql"))
+</pre></code>
+
+h2. TODOs
+
+* Right now it assumes it's being run in the root of a Rails project and loads config/environment.rb. This could be improved, but right now I don't have a use case.
