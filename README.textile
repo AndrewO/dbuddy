@@ -11,22 +11,22 @@ h2. Usage
 
 Loading:
 
-<code><pre>
+<pre><code>
   dbuddy db/views/*.sql db/procedures/*.sql
-</pre></code>
+</code></pre>
 
 Watching:
 
-<code><pre>
+<pre><code>
   dbuddy --watch db/views/*.sql db/procedures/*.sql
   dbuddy -w db/views/*.sql db/procedures/*.sql
-</pre></code>
+</code></pre>
 
 From code (e.g. rake task)
 
-<code><pre>
+<pre><code>
   DBuddy.run(ActiveRecord::Base.connection, Dir.glob("db/views/*.sql") + Dir.glob("db/procedures/*.sql"))
-</pre></code>
+</code></pre>
 
 h2. TODOs
 
