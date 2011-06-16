@@ -1,3 +1,3 @@
-module DbExec
-  VERSION = "0.0.1"
+module DBuddy
+  VERSION = "0.1.0"
 end
