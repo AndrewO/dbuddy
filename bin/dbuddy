@@ -4,6 +4,10 @@ require 'optparse'
 require 'rubygems'
 require 'watchr'
 
+# Assumes it's in a Rails environment. Eventually I could see adding some kind of config file or initializer that
+# allows use with any project, but I don't need that right now.
+require File.join(Dir.pwd, 'config/environment')
+
 $:.unshift(File.join(File.dirname(__FILE__), "/../lib"))
 require "dbuddy"
 
@@ -12,11 +16,6 @@ require "dbuddy"
 opts = OptionParser.new
 opts.on("-w", "--watch") { @watch = true }
 @globs = opts.parse(ARGV)
-
-# Assumes it's in a Rails environment. Eventually I could see adding some kind of config file or initializer that
-# allows use with any project, but I don't need that right now.
-require File.join(Dir.pwd, 'config/environment')
-
 
 if @watch
   script = Watchr::Script.new
